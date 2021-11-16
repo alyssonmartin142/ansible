@@ -1,0 +1,30 @@
+---
+- name: Instalar pacotes obrigatórios
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name: nginx
+    state: latest
+  notify: Restart nginx
+- name: create directory if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  loop:
+    - /var/www
+    - /var/www/html
+- name: Copy index.html (template)
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - index.html
+    - ansible.mp4
+  notify: Restart nginx
