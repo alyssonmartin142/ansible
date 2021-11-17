@@ -1,0 +1,13 @@
+- name: k3s master - Starting Deploy
+  hosts: master
+  become: yes
+  roles:
+    # - docker
+    - k3s
+    - master
+- name: k3s agent - Starting Deploy
+  hosts: agent
+  become: yes
+  roles:
+    # - docker
+    - agent

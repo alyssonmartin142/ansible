@@ -1,0 +1,13 @@
+- name: host
+  debug:
+    msg: "{{ groups['agent'] }}"
+- name: Copy join
+  copy:
+    src: ./roles/master/files/
+    dest: /root/
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+- name: Executar script join
+  shell: bash /root/k3s-join.sh

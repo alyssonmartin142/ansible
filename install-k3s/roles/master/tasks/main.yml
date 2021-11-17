@@ -1,0 +1,13 @@
+- name: Create file with k3s join
+  shell: echo "curl -sfL https://get.k3s.io | K3S_URL=https://{{ groups['master'][0] }}:6443 K3S_TOKEN=$(cat /var/lib/rancher/k3s/server/node-token) sh -" > /root/k3s-join.sh
+- name: Allow ports on firewall
+  shell: ufw allow 6443/tcp
+- name: Allow ports on firewall
+  shell: ufw allow 443/tcp
+- name: Install helm
+  shell: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+- name: ansible copy file from remote to local.
+  fetch:
+    src: /root/k3s-join.sh
+    dest: ./roles/master/files/
+    flat: yes

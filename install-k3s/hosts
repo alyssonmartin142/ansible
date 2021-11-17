@@ -1,0 +1,14 @@
+[master]
+161.35.33.135
+
+[agent]
+161.35.40.110
+
+[cluster:children]
+master
+agent
+
+[cluster:vars]
+ansible_user=root
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=/home/alyssonmartin/labs/terraform-digital-ocean/kubeadm/.ssh/id_rsa
